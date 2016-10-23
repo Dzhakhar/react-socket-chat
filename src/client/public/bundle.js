@@ -73,6 +73,14 @@
 
 	var _MessageInput2 = _interopRequireDefault(_MessageInput);
 
+	var _Chats = __webpack_require__(243);
+
+	var _Chats2 = _interopRequireDefault(_Chats);
+
+	var _Calls = __webpack_require__(244);
+
+	var _Calls2 = _interopRequireDefault(_Calls);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -92,7 +100,8 @@
 	        _this.state = {
 	            socket: undefined,
 	            messages: [],
-	            users: []
+	            users: [],
+	            activeUrl: ""
 	        };
 
 	        _this.componentDidMount = _this.componentDidMount.bind(_this);
@@ -102,8 +111,8 @@
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var socket = io();
 	            var self = this;
+	            var socket = io();
 
 	            self.setState({
 	                socket: socket
@@ -133,14 +142,17 @@
 	                    { className: 'row' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-md-2' },
+	                        { className: 'col-md-12 col-xs-12' },
 	                        _react2.default.createElement(_Navbar.Navbar, { globalParent: this })
-	                    ),
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-md-7' },
-	                        _react2.default.createElement(_Messages2.default, { globalParent: this }),
-	                        _react2.default.createElement(_MessageInput2.default, { globalParent: this })
+	                        { className: 'col-md-12 col-xs-12' },
+	                        this.props.children
 	                    ),
 	                    _react2.default.createElement('div', { className: 'col-md-3' })
 	                )
@@ -154,7 +166,13 @@
 	(0, _reactDom.render)(_react2.default.createElement(
 	    _reactRouter.Router,
 	    { history: _reactRouter.browserHistory },
-	    _react2.default.createElement(_reactRouter.Route, { path: '/', component: App })
+	    _react2.default.createElement(
+	        _reactRouter.Route,
+	        { path: '/', component: App },
+	        _react2.default.createElement(_reactRouter.Route, { path: 'chats', component: _Chats2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'calls', component: _Calls2.default })
+	    ),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'messages', component: _MessageInput2.default })
 	), document.getElementById('app'));
 
 /***/ },
@@ -27210,13 +27228,33 @@
 	  _createClass(Navbar, [{
 	    key: "render",
 	    value: function render() {
+	      var globalParent = this.props.globalParent;
+
+	      var className = function className(link) {
+	        if (globalParent.props.location.pathname.indexOf(link) > -1) {
+	          return "active item col-md-4 col-xs-4";
+	        }
+
+	        return "item col-md-4 col-xs-4";
+	      };
+
 	      return _react2.default.createElement(
 	        "div",
-	        null,
+	        { className: "ui pointing secondary menu tab-menu" },
 	        _react2.default.createElement(
 	          _reactRouter.Link,
-	          { to: "/" },
-	          "Home"
+	          { to: "/calls", className: className("calls"), "data-tab": "first" },
+	          "CALLS"
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: "/chats", className: className("chats"), "data-tab": "second" },
+	          "CHATS"
+	        ),
+	        _react2.default.createElement(
+	          _reactRouter.Link,
+	          { to: "/contacts", className: className("contacts"), "data-tab": "third" },
+	          "CONTACTS"
 	        )
 	      );
 	    }
@@ -27372,6 +27410,210 @@
 	}(_react2.default.Component);
 
 	exports.default = MessageInput;
+
+/***/ },
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(173);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Chats = function (_React$Component) {
+	  _inherits(Chats, _React$Component);
+
+	  function Chats() {
+	    _classCallCheck(this, Chats);
+
+	    return _possibleConstructorReturn(this, (Chats.__proto__ || Object.getPrototypeOf(Chats)).apply(this, arguments));
+	  }
+
+	  _createClass(Chats, [{
+	    key: "render",
+	    value: function render() {
+	      var tmp = [{
+	        username: "Dzhakhar",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "How are you?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Adam",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Hey now"
+	      }, {
+	        username: "Zubi",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "No one .."
+	      }, {
+	        username: "Makka",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Hey"
+	      }];
+
+	      var renderChats = function renderChats() {
+	        return tmp.map(function (item, i) {
+	          return _react2.default.createElement(
+	            _reactRouter.Link,
+	            { to: "/messages?r=" + item.username, className: "item chat-item" },
+	            _react2.default.createElement("img", { className: "ui tiny user-avatar image", src: item.avatar }),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "content" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "header" },
+	                item.username
+	              ),
+	              item.lastMessage
+	            )
+	          );
+	        });
+	      };
+
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "chat-page" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "ui segment cleared" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "ui relaxed divided list" },
+	            renderChats()
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Chats;
+	}(_react2.default.Component);
+
+	exports.default = Chats;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Calls = function (_React$Component) {
+	  _inherits(Calls, _React$Component);
+
+	  function Calls() {
+	    _classCallCheck(this, Calls);
+
+	    return _possibleConstructorReturn(this, (Calls.__proto__ || Object.getPrototypeOf(Calls)).apply(this, arguments));
+	  }
+
+	  _createClass(Calls, [{
+	    key: "render",
+	    value: function render() {
+	      var tmp = [{
+	        username: "Dzhakhar",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "How are you?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Adam",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Hey now"
+	      }, {
+	        username: "Zubi",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "No one .."
+	      }, {
+	        username: "Makka",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Hey"
+	      }];
+
+	      var renderChats = function renderChats() {
+	        return tmp.map(function (item, i) {
+	          return _react2.default.createElement(
+	            Link,
+	            { to: "/messages?r=" + item.username, className: "item chat-item" },
+	            _react2.default.createElement("img", { className: "ui tiny user-avatar image", src: item.avatar }),
+	            _react2.default.createElement(
+	              "div",
+	              { className: "content" },
+	              _react2.default.createElement(
+	                "div",
+	                { className: "header" },
+	                item.username
+	              ),
+	              item.lastMessage
+	            )
+	          );
+	        });
+	      };
+
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "chat-page" },
+	        _react2.default.createElement(
+	          "div",
+	          { className: "ui segment cleared" },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "ui relaxed divided list" },
+	            renderChats()
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Calls;
+	}(_react2.default.Component);
+
+	exports.default = Calls;
 
 /***/ }
 /******/ ]);

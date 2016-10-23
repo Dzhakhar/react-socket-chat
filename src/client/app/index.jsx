@@ -4,6 +4,8 @@ import {Router, Route, browserHistory} from "react-router";
 import {Navbar} from "./components/Navbar.jsx";
 import Messages from "./components/Messages.jsx";
 import MessageInput from "./components/MessageInput.jsx";
+import Chats from "./components/Chats.jsx";
+import Calls from "./components/Calls.jsx";
 
 class App extends React.Component {
     constructor(props) {
@@ -12,15 +14,16 @@ class App extends React.Component {
         this.state = {
             socket: undefined,
             messages: [],
-            users: []
+            users: [],
+            activeUrl: ""
         }
 
         this.componentDidMount = this.componentDidMount.bind(this);
     }
 
     componentDidMount() {
-        let socket = io();
         let self = this;
+        let socket = io();
 
         self.setState({
             socket: socket
@@ -42,16 +45,17 @@ class App extends React.Component {
 
     render() {
         return <div className="container-fluid">
-            <div className="row">
-                <div className="col-md-2">
-                    <Navbar globalParent={this}/>
-                </div>
-                <div className="col-md-7">
-                    <Messages globalParent={this}/>
-                    <MessageInput globalParent={this}/>
+              <div className="row">
+                  <div className="col-md-12 col-xs-12">
+                      <Navbar globalParent={this}/>
+                  </div>
+              </div>
+              <div className="row">
+                <div className="col-md-12 col-xs-12">
+                    {this.props.children}
                 </div>
                 <div className="col-md-3"></div>
-            </div>
+              </div>
         </div>
     }
 }
@@ -59,6 +63,9 @@ class App extends React.Component {
 render((
     <Router history={browserHistory}>
         <Route path="/" component={App}>
+          <Route path="chats" component={Chats}/>
+          <Route path="calls" component={Calls}/>
         </Route>
+        <Route path="messages" component={MessageInput}/>
     </Router>
 ), document.getElementById('app'))

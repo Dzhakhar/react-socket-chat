@@ -1,3 +1,38 @@
 body {
-  background: #e3e3e3;
+  background: #fff;
+}
+
+.tab-menu {
+  background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#f7dfa5),color-stop(100%,#f0c14b)) !important;
+}
+
+.user-avatar {
+  width: 40px !important;
+  border-radius: 50%;
+}
+
+.ui.segment.cleared {
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+}
+
+.chat-page {
+  & > .ui.segment {
+    padding: 0;
+
+    .list {
+      .chat-item {
+        padding: 10px !important;
+
+        &:hover {
+          background: rgba(0,0,0,.03);
+        }
+
+        .content {
+          padding-top: 5px;
+        }
+      }
+    }
+  }
 }
