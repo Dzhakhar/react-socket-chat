@@ -81,6 +81,10 @@
 
 	var _Calls2 = _interopRequireDefault(_Calls);
 
+	var _Auth = __webpack_require__(245);
+
+	var _Auth2 = _interopRequireDefault(_Auth);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -152,29 +156,33 @@
 	                return self.props.children;
 	            }
 
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'container-fluid' },
-	                _react2.default.createElement(
+	            if (window.localStorage.getItem("TOKEN")) {
+	                return _react2.default.createElement(
 	                    'div',
-	                    { className: 'row' },
+	                    { className: 'container-fluid' },
 	                    _react2.default.createElement(
 	                        'div',
-	                        { className: 'col-md-12 col-xs-12' },
-	                        _react2.default.createElement(_Navbar.Navbar, { globalParent: this })
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-md-12 col-xs-12' },
-	                        _react2.default.cloneElement(getChildren(), this)
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-12 col-xs-12' },
+	                            _react2.default.createElement(_Navbar.Navbar, { globalParent: this })
+	                        )
 	                    ),
-	                    _react2.default.createElement('div', { className: 'col-md-3' })
-	                )
-	            );
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-md-12 col-xs-12' },
+	                            _react2.default.cloneElement(getChildren(), this)
+	                        ),
+	                        _react2.default.createElement('div', { className: 'col-md-3' })
+	                    )
+	                );
+	            }
+
+	            return _react2.default.createElement(_Auth2.default, null);
 	        }
 	    }]);
 
@@ -27678,6 +27686,120 @@
 	}(_react2.default.Component);
 
 	exports.default = Calls;
+
+/***/ },
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Auth = function (_React$Component) {
+	  _inherits(Auth, _React$Component);
+
+	  function Auth(props) {
+	    _classCallCheck(this, Auth);
+
+	    var _this = _possibleConstructorReturn(this, (Auth.__proto__ || Object.getPrototypeOf(Auth)).call(this, props));
+
+	    _this.state = {
+	      messageSent: false
+	    };
+
+	    _this.sendPhoneNumber = _this.sendPhoneNumber.bind(_this);
+	    _this.confirmSecretCode = _this.confirmSecretCode.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(Auth, [{
+	    key: "confirmSecretCode",
+	    value: function confirmSecretCode(e) {
+	      e.preventDefault();
+	      var self = this;
+
+	      var secretCode = document.getElementById("secretCode").value;
+
+	      $.ajax({
+	        url: "/login/confirm/" + secretCode + "/" + self.state.number,
+	        method: "GET",
+	        success: function success(data) {
+	          console.log(data);
+	        }
+	      });
+	    }
+	  }, {
+	    key: "sendPhoneNumber",
+	    value: function sendPhoneNumber(e) {
+	      var self = this;
+	      e.preventDefault();
+
+	      $.ajax({
+	        url: "/login/" + document.getElementById("phoneNumber").value,
+	        method: "GET",
+	        success: function success(data) {
+	          if (JSON.parse(data).success) {
+	            self.setState({
+	              messageSent: true,
+	              number: document.getElementById("phoneNumber").value
+	            });
+	          } else {}
+	        }
+	      });
+	    }
+	  }, {
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "div",
+	        { className: "ui form" },
+	        _react2.default.createElement(
+	          "form",
+	          { onSubmit: this.sendPhoneNumber },
+	          _react2.default.createElement(
+	            "div",
+	            { className: "field" },
+	            _react2.default.createElement(
+	              "label",
+	              null,
+	              "Your phone number:"
+	            ),
+	            _react2.default.createElement("input", { type: "text", placeholder: "8(xxx)XXX-XX-XX", id: "phoneNumber" }),
+	            this.state.messageSent ? _react2.default.createElement(
+	              "form",
+	              { onSubmit: this.confirmSecretCode },
+	              _react2.default.createElement("input", { type: "text", placeholder: "type your secret code", id: "secretCode" })
+	            ) : false
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Auth;
+	}(_react2.default.Component);
+
+	exports.default = Auth;
 
 /***/ }
 /******/ ]);
