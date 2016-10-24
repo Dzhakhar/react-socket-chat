@@ -6,6 +6,6 @@ dev: Bower + Webpack + Babel
 
 ```
 npm install
-node index.js
-webpack --watch --progress --colors
+webpack
+node server.js
 ```
