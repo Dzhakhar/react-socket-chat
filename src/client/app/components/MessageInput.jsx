@@ -1,17 +1,17 @@
 import React from "react";
 
 class MessageInput extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.messageSubmit = this.messageSubmit.bind(this.props.globalParent);
     }
 
-    messageSubmit(e){
+    messageSubmit(e) {
         e.preventDefault();
         let textInput = document.getElementById("message-text");
 
-        if(this.state.socket){
+        if (this.state.socket) {
             this.state.socket.emit("new_message", {
                 author: "Dzhakhar",
                 message: {

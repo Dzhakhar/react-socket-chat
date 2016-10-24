@@ -73,11 +73,11 @@
 
 	var _MessageInput2 = _interopRequireDefault(_MessageInput);
 
-	var _Chats = __webpack_require__(243);
+	var _Chats = __webpack_require__(239);
 
 	var _Chats2 = _interopRequireDefault(_Chats);
 
-	var _Calls = __webpack_require__(244);
+	var _Calls = __webpack_require__(240);
 
 	var _Calls2 = _interopRequireDefault(_Calls);
 
@@ -27244,17 +27244,29 @@
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: "/calls", className: className("calls"), "data-tab": "first" },
-	          "CALLS"
+	          _react2.default.createElement(
+	            "div",
+	            { className: "centered-in-link" },
+	            "CALLS"
+	          )
 	        ),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: "/chats", className: className("chats"), "data-tab": "second" },
-	          "CHATS"
+	          _react2.default.createElement(
+	            "div",
+	            { className: "centered-in-link" },
+	            "CHATS"
+	          )
 	        ),
 	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: "/contacts", className: className("contacts"), "data-tab": "third" },
-	          "CONTACTS"
+	          _react2.default.createElement(
+	            "div",
+	            { className: "centered-in-link" },
+	            "CONTACTS"
+	          )
 	        )
 	      );
 	    }
@@ -27412,11 +27424,7 @@
 	exports.default = MessageInput;
 
 /***/ },
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */
+/* 239 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27517,7 +27525,7 @@
 	exports.default = Chats;
 
 /***/ },
-/* 244 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";

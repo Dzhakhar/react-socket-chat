@@ -45,17 +45,17 @@ class App extends React.Component {
 
     render() {
         return <div className="container-fluid">
-              <div className="row">
-                  <div className="col-md-12 col-xs-12">
-                      <Navbar globalParent={this}/>
-                  </div>
-              </div>
-              <div className="row">
+            <div className="row">
+                <div className="col-md-12 col-xs-12">
+                    <Navbar globalParent={this}/>
+                </div>
+            </div>
+            <div className="row">
                 <div className="col-md-12 col-xs-12">
                     {this.props.children}
                 </div>
                 <div className="col-md-3"></div>
-              </div>
+            </div>
         </div>
     }
 }
@@ -63,8 +63,8 @@ class App extends React.Component {
 render((
     <Router history={browserHistory}>
         <Route path="/" component={App}>
-          <Route path="chats" component={Chats}/>
-          <Route path="calls" component={Calls}/>
+            <Route path="chats" component={Chats}/>
+            <Route path="calls" component={Calls}/>
         </Route>
         <Route path="messages" component={MessageInput}/>
     </Router>

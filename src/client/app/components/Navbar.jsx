@@ -14,9 +14,9 @@ class Navbar extends React.Component {
     }
 
     return <div className="ui pointing secondary menu tab-menu">
-          <Link to="/calls" className={className("calls")} data-tab="first">CALLS</Link>
-          <Link to="/chats" className={className("chats")} data-tab="second">CHATS</Link>
-          <Link to="/contacts" className={className("contacts")} data-tab="third">CONTACTS</Link>
+          <Link to="/calls" className={className("calls")} data-tab="first"><div className="centered-in-link">CALLS</div></Link>
+          <Link to="/chats" className={className("chats")} data-tab="second"><div className="centered-in-link">CHATS</div></Link>
+          <Link to="/contacts" className={className("contacts")} data-tab="third"><div className="centered-in-link">CONTACTS</div></Link>
         </div>
   }
 }
