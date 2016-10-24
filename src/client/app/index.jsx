@@ -18,10 +18,11 @@ class App extends React.Component {
             activeUrl: ""
         }
 
-        this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentWillMount = this.componentWillMount.bind(this);
+        this.openSocket = this.openSocket.bind(this);
     }
 
-    componentDidMount() {
+    openSocket(callback){
         let self = this;
         let socket = io();
 
@@ -38,8 +39,14 @@ class App extends React.Component {
             tmp.push(data);
             self.setState({
                 messages: tmp
+            }, function(){
+              if(callback) callback();
             })
         })
+    }
+
+    componentWillMount() {
+      this.openSocket();
     }
 
     render() {

@@ -104,13 +104,14 @@
 	            activeUrl: ""
 	        };
 
-	        _this.componentDidMount = _this.componentDidMount.bind(_this);
+	        _this.componentWillMount = _this.componentWillMount.bind(_this);
+	        _this.openSocket = _this.openSocket.bind(_this);
 	        return _this;
 	    }
 
 	    _createClass(App, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
+	        key: 'openSocket',
+	        value: function openSocket(callback) {
 	            var self = this;
 	            var socket = io();
 
@@ -127,8 +128,15 @@
 	                tmp.push(data);
 	                self.setState({
 	                    messages: tmp
+	                }, function () {
+	                    if (callback) callback();
 	                });
 	            });
+	        }
+	    }, {
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {
+	            this.openSocket();
 	        }
 	    }, {
 	        key: 'render',
@@ -27404,6 +27412,8 @@
 	        value: function messageSubmit(e) {
 	            e.preventDefault();
 	            var textInput = document.getElementById("message-text");
+
+	            console.log(this.state);
 
 	            if (this.state.socket) {
 	                this.state.socket.emit("new_message", {
