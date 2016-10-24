@@ -29,3 +29,13 @@ body {
 .chat-page > .ui.segment .list .chat-item .content {
   padding-top: 5px;
 }
+.messages-page {
+  height: 94vh;
+  position: relative;
+}
+.messages-page .message-input-div {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+}

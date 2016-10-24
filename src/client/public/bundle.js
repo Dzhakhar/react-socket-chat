@@ -125,7 +125,6 @@
 	            socket.on("new_message", function (data) {
 	                var tmp = self.state.messages;
 	                tmp.push(data);
-
 	                self.setState({
 	                    messages: tmp
 	                });
@@ -134,6 +133,17 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var self = this;
+
+	            function getChildren() {
+	                if (!self.props.children) {
+	                    self.props.location.pathname = "/chats";
+	                    return _react2.default.createElement(_Chats2.default, null);
+	                }
+
+	                return self.props.children;
+	            }
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'container-fluid' },
@@ -152,7 +162,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'col-md-12 col-xs-12' },
-	                        this.props.children
+	                        _react2.default.cloneElement(getChildren(), this)
 	                    ),
 	                    _react2.default.createElement('div', { className: 'col-md-3' })
 	                )
@@ -170,9 +180,9 @@
 	        _reactRouter.Route,
 	        { path: '/', component: App },
 	        _react2.default.createElement(_reactRouter.Route, { path: 'chats', component: _Chats2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'calls', component: _Calls2.default })
-	    ),
-	    _react2.default.createElement(_reactRouter.Route, { path: 'messages', component: _MessageInput2.default })
+	        _react2.default.createElement(_reactRouter.Route, { path: 'calls', component: _Calls2.default }),
+	        _react2.default.createElement(_reactRouter.Route, { path: 'messages', component: _Messages2.default })
+	    )
 	), document.getElementById('app'));
 
 /***/ },
@@ -27217,62 +27227,62 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var Navbar = function (_React$Component) {
-	  _inherits(Navbar, _React$Component);
+	    _inherits(Navbar, _React$Component);
 
-	  function Navbar() {
-	    _classCallCheck(this, Navbar);
+	    function Navbar(props) {
+	        _classCallCheck(this, Navbar);
 
-	    return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).apply(this, arguments));
-	  }
-
-	  _createClass(Navbar, [{
-	    key: "render",
-	    value: function render() {
-	      var globalParent = this.props.globalParent;
-
-	      var className = function className(link) {
-	        if (globalParent.props.location.pathname.indexOf(link) > -1) {
-	          return "active item col-md-4 col-xs-4";
-	        }
-
-	        return "item col-md-4 col-xs-4";
-	      };
-
-	      return _react2.default.createElement(
-	        "div",
-	        { className: "ui pointing secondary menu tab-menu" },
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: "/calls", className: className("calls"), "data-tab": "first" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "centered-in-link" },
-	            "CALLS"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: "/chats", className: className("chats"), "data-tab": "second" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "centered-in-link" },
-	            "CHATS"
-	          )
-	        ),
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: "/contacts", className: className("contacts"), "data-tab": "third" },
-	          _react2.default.createElement(
-	            "div",
-	            { className: "centered-in-link" },
-	            "CONTACTS"
-	          )
-	        )
-	      );
+	        return _possibleConstructorReturn(this, (Navbar.__proto__ || Object.getPrototypeOf(Navbar)).call(this, props));
 	    }
-	  }]);
 
-	  return Navbar;
+	    _createClass(Navbar, [{
+	        key: "render",
+	        value: function render() {
+	            var globalParent = this.props.globalParent;
+
+	            var className = function className(link) {
+	                if (globalParent.props.location.pathname.indexOf(link) > -1) {
+	                    return "active item col-md-4 col-xs-4";
+	                }
+
+	                return "item col-md-4 col-xs-4";
+	            };
+
+	            return _react2.default.createElement(
+	                "div",
+	                { className: "ui pointing secondary menu tab-menu" },
+	                _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: "/calls", className: className("calls"), "data-tab": "first" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "centered-in-link" },
+	                        "CALLS"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: "/chats", className: className("chats"), "data-tab": "second" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "centered-in-link" },
+	                        "CHATS"
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactRouter.Link,
+	                    { to: "/contacts", className: className("contacts"), "data-tab": "third" },
+	                    _react2.default.createElement(
+	                        "div",
+	                        { className: "centered-in-link" },
+	                        "CONTACTS"
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return Navbar;
 	}(_react2.default.Component);
 
 	exports.Navbar = Navbar;
@@ -27292,6 +27302,10 @@
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _MessageInput = __webpack_require__(238);
+
+	var _MessageInput2 = _interopRequireDefault(_MessageInput);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27313,14 +27327,14 @@
 	    _createClass(Messages, [{
 	        key: "render",
 	        value: function render() {
-	            var globalParent = this.props.globalParent;
+	            var globalParent = this.props;
 
 	            var renderMessages = function renderMessages() {
 	                if (globalParent.state.messages && globalParent.state.messages.length > 0) {
 	                    return globalParent.state.messages.map(function (item, i) {
 	                        return _react2.default.createElement(
 	                            "p",
-	                            null,
+	                            { key: i },
 	                            item.message.text
 	                        );
 	                    });
@@ -27331,8 +27345,15 @@
 
 	            return _react2.default.createElement(
 	                "div",
-	                { className: "ui segment" },
-	                renderMessages()
+	                {
+	                    className: "messages-page",
+	                    style: { backgroundImage: "url(media/geometry2.png)" } },
+	                renderMessages(),
+	                _react2.default.createElement(
+	                    "div",
+	                    { className: "message-input-div" },
+	                    _react2.default.createElement(_MessageInput2.default, { globalParent: this.props })
+	                )
 	            );
 	        }
 	    }]);
@@ -27406,11 +27427,6 @@
 	                    _react2.default.createElement(
 	                        "div",
 	                        { className: "field" },
-	                        _react2.default.createElement(
-	                            "label",
-	                            null,
-	                            "Write a message"
-	                        ),
 	                        _react2.default.createElement("input", { id: "message-text" })
 	                    )
 	                )
@@ -27470,6 +27486,34 @@
 	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
 	        lastMessage: "Что нового?:)"
 	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
+	        username: "Bilal",
+	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+	        lastMessage: "Что нового?:)"
+	      }, {
 	        username: "Adam",
 	        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
 	        lastMessage: "Hey now"
@@ -27487,7 +27531,7 @@
 	        return tmp.map(function (item, i) {
 	          return _react2.default.createElement(
 	            _reactRouter.Link,
-	            { to: "/messages?r=" + item.username, className: "item chat-item" },
+	            { key: i, to: "/messages?r=" + item.username, className: "item chat-item" },
 	            _react2.default.createElement("img", { className: "ui tiny user-avatar image", src: item.avatar }),
 	            _react2.default.createElement(
 	              "div",
@@ -27540,6 +27584,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(173);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27585,8 +27631,8 @@
 	      var renderChats = function renderChats() {
 	        return tmp.map(function (item, i) {
 	          return _react2.default.createElement(
-	            Link,
-	            { to: "/messages?r=" + item.username, className: "item chat-item" },
+	            _reactRouter.Link,
+	            { key: i, to: "/messages?r=" + item.username, className: "item chat-item" },
 	            _react2.default.createElement("img", { className: "ui tiny user-avatar image", src: item.avatar }),
 	            _react2.default.createElement(
 	              "div",

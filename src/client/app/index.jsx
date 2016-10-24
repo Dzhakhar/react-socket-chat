@@ -36,7 +36,6 @@ class App extends React.Component {
         socket.on("new_message", function (data) {
             let tmp = self.state.messages;
             tmp.push(data);
-
             self.setState({
                 messages: tmp
             })
@@ -44,6 +43,17 @@ class App extends React.Component {
     }
 
     render() {
+        let self = this;
+
+        function getChildren(){
+          if(!self.props.children){
+            self.props.location.pathname = "/chats";
+            return <Chats/>;
+          }
+
+          return self.props.children;
+        }
+
         return <div className="container-fluid">
             <div className="row">
                 <div className="col-md-12 col-xs-12">
@@ -52,7 +62,7 @@ class App extends React.Component {
             </div>
             <div className="row">
                 <div className="col-md-12 col-xs-12">
-                    {this.props.children}
+                    {React.cloneElement(getChildren(), this)}
                 </div>
                 <div className="col-md-3"></div>
             </div>
@@ -65,7 +75,7 @@ render((
         <Route path="/" component={App}>
             <Route path="chats" component={Chats}/>
             <Route path="calls" component={Calls}/>
+            <Route path="messages" component={Messages}/>
         </Route>
-        <Route path="messages" component={MessageInput}/>
     </Router>
 ), document.getElementById('app'))

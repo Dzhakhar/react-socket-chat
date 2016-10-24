@@ -13,6 +13,34 @@ class Chats extends React.Component {
         avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
         lastMessage: "Что нового?:)"
       }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
+        username: "Bilal",
+        avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
+        lastMessage: "Что нового?:)"
+      }, {
         username: "Adam",
         avatar: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQUmTjmoz9VNgoZvYPCH0mY1qCZwvMVf-EG5m97Ad-VBemfjnAnFjzBECXp",
         lastMessage: "Hey now"
@@ -29,7 +57,7 @@ class Chats extends React.Component {
 
     let renderChats = function(){
       return tmp.map((item, i)=>{
-        return <Link to={"/messages?r=" + item.username} className="item chat-item">
+        return <Link key={i} to={"/messages?r=" + item.username} className="item chat-item">
           <img className="ui tiny user-avatar image" src={item.avatar}></img>
           <div className="content">
             <div className="header">{item.username}</div>

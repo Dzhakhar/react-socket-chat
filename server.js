@@ -4,20 +4,31 @@ var http = require('http').Server(app);
 var path = require("path");
 var io = require('socket.io')(http);
 
-io.on('connection', function (socket) {
-    console.log('a user connected');
+var MongoClient = require('mongodb').MongoClient;
 
-    socket.on("new_message", function (data) {
-        io.emit("new_message", data);
-    })
-});
+var url = 'mongodb://localhost:27017/test';
+MongoClient.connect(url, function(err, db) {
 
-app.use(express.static(__dirname + '/src/client/public'));
+  io.on('connection', function (socket) {
+      console.log('a user connected');
 
-app.get('/*', function (req, res) {
-    res.sendFile(path.join(__dirname, "index.html"));
-});
+      socket.on("new_message", function (data) {
+          console.log(data);
+          io.emit("new_message", data);
+      })
+  });
 
-http.listen(3000, function () {
-    console.log('listening on *:3000');
+  app.use(express.static(__dirname + '/src/client/public'));
+
+  app.get('/*', function (req, res) {
+      res.sendFile(path.join(__dirname, "index.html"));
+  });
+
+  // start listen http server
+  http.listen(3000, function () {
+      console.log('listening on *:3000');
+  });
+
+  console.log("Connected correctly to server.");
+  // db.close();
 });

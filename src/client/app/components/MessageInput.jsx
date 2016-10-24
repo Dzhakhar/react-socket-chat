@@ -26,7 +26,6 @@ class MessageInput extends React.Component {
         return <div className="ui form">
             <form onSubmit={this.messageSubmit}>
                 <div className="field">
-                    <label>Write a message</label>
                     <input id="message-text"></input>
                 </div>
             </form>

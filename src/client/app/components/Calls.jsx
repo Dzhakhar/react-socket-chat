@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router";
 
 class Calls extends React.Component {
   render(){
@@ -28,7 +29,7 @@ class Calls extends React.Component {
 
     let renderChats = function(){
       return tmp.map((item, i)=>{
-        return <Link to={"/messages?r=" + item.username} className="item chat-item">
+        return <Link key={i} to={"/messages?r=" + item.username} className="item chat-item">
           <img className="ui tiny user-avatar image" src={item.avatar}></img>
           <div className="content">
             <div className="header">{item.username}</div>
