@@ -10,6 +10,8 @@ class MessageInput extends React.Component {
     messageSubmit(e) {
         e.preventDefault();
         let textInput = document.getElementById("message-text");
+        
+        console.log(this.state);
 
         if (this.state.socket) {
             this.state.socket.emit("new_message", {
