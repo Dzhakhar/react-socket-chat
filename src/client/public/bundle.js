@@ -81,7 +81,7 @@
 
 	var _Calls2 = _interopRequireDefault(_Calls);
 
-	var _Auth = __webpack_require__(245);
+	var _Auth = __webpack_require__(241);
 
 	var _Auth2 = _interopRequireDefault(_Auth);
 
@@ -27688,11 +27688,7 @@
 	exports.default = Calls;
 
 /***/ },
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -27772,10 +27768,10 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        "div",
-	        { className: "ui form" },
+	        { className: "ui form container auth-page" },
 	        _react2.default.createElement(
 	          "form",
-	          { onSubmit: this.sendPhoneNumber },
+	          { className: "auth-form", onSubmit: this.sendPhoneNumber },
 	          _react2.default.createElement(
 	            "div",
 	            { className: "field" },
@@ -27788,7 +27784,13 @@
 	            this.state.messageSent ? _react2.default.createElement(
 	              "form",
 	              { onSubmit: this.confirmSecretCode },
-	              _react2.default.createElement("input", { type: "text", placeholder: "type your secret code", id: "secretCode" })
+	              _react2.default.createElement("input", { type: "text", placeholder: "type your secret code", id: "secretCode" }),
+	              _react2.default.createElement(
+	                "button",
+	                { type: "submit", className: "A_button rounded submit-button" },
+	                "Next",
+	                _react2.default.createElement("i", { className: "ui icon right arrow" })
+	              )
 	            ) : false
 	          )
 	        )

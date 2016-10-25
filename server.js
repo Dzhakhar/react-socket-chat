@@ -9,6 +9,10 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://localhost:27017/yaaha';
 MongoClient.connect(url, function(err, db) {
 
+  if(err){
+    throw err;
+  }
+
   io.on('connection', function (socket) {
       console.log('a user connected');
 
@@ -20,9 +24,9 @@ MongoClient.connect(url, function(err, db) {
   app.use(express.static(__dirname + '/src/client/public'));
 
   app.get("/login/:phonenumber", function(req, res){
-    var phonenumbers = db.collection("phonenumbers");
+    var users = db.collection("users");
 
-    phonenumbers.ensureIndex({number: 1}, {unique: true}, function(err, indexName){
+    users.ensureIndex({number: 1}, {unique: true}, function(err, indexName){
       if(err){
         res.send(JSON.stringify({
           "result": "Phone number exists",
@@ -32,7 +36,7 @@ MongoClient.connect(url, function(err, db) {
       }
     })
 
-    phonenumbers.insertOne({
+    users.insertOne({
       "number": req.params.phonenumber,
       "verified": false,
       "secretCode": 12312
@@ -55,14 +59,15 @@ MongoClient.connect(url, function(err, db) {
   })
 
   app.get("/login/confirm/:secretCode/:phoneNumber", function(req, res){
-    var phonenumbers = db.collection("phonenumbers");
+    var users = db.collection("users");
 
-    phonenumbers.find({
+    users.find({
       number: req.params.phoneNumber,
       secretCode: parseInt(req.params.secretCode)
     }, function(err, result){
       if(!err){
         result.toArray(function(err, item){
+          console.log(item);
           if(item[0].secretCode === parseInt(req.params.secretCode)){
             res.send(JSON.stringify({
               "success": true

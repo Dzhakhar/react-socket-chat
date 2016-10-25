@@ -47,13 +47,17 @@ class Auth extends React.Component {
   }
 
   render(){
-    return <div className="ui form">
-      <form onSubmit={this.sendPhoneNumber}>
+    return <div className="ui form container auth-page">
+      <form className="auth-form" onSubmit={this.sendPhoneNumber}>
         <div className="field">
           <label>Your phone number:</label>
           <input type="text" placeholder="8(xxx)XXX-XX-XX" id="phoneNumber"></input>
           {(this.state.messageSent) ? <form onSubmit={this.confirmSecretCode}>
             <input type="text" placeholder="type your secret code" id="secretCode"></input>
+            <button type="submit" className="A_button rounded submit-button">
+              Next
+              <i className="ui icon right arrow"></i>
+            </button>
             </form> : false}
         </div>
       </form>
